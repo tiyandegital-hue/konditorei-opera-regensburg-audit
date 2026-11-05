@@ -1,0 +1,458 @@
+/* =========================================================
+   BEFUND-DOSSIER — Konditorei Opera × Tiyan Digital
+   Kraft-paper "Audit-Dossier" aesthetic. All tokens from STITCH-EXPORT.md.
+   ========================================================= */
+:root{
+  --kraft:#E7D8BC;
+  --kraft-deep:#D9C49A;
+  --card:#EFE3CB;
+  --ink:#2A1F14;
+  --red:#B02A1E;
+  --gray:#6B5D4B;
+  --line:rgba(42,31,20,.15);
+  --line-strong:rgba(42,31,20,.35);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --content:760px;
+  --content-wide:1080px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+html,body{margin:0;padding:0}
+
+body{
+  background-color:var(--kraft);
+  color:var(--ink);
+  font-family:"Archivo",system-ui,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* Paper grain: SVG noise overlay + dot grid */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:60;
+  opacity:.5;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.12 0 0 0 0 0.07 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection{background:var(--red);color:var(--kraft)}
+
+/* ---------- Micro labels (IBM Plex Mono) ---------- */
+.micro{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  opacity:.6;
+  margin:0;
+  line-height:1.7;
+}
+.micro--dim{opacity:.45;color:var(--gray)}
+.micro--red{color:var(--red);opacity:1}
+.upper{text-transform:uppercase}
+
+/* ---------- Headlines (Archivo condensed) ---------- */
+.h1-line,.h2,.h3,.fact__value,.stamp-card__big{
+  font-family:"Archivo",sans-serif;
+  font-stretch:75%;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:-0.02em;
+}
+.h2{font-size:clamp(30px,5vw,52px);line-height:1;margin:.35em 0 .5em}
+.h3{font-size:clamp(20px,3vw,28px);line-height:1.1;margin:.4em 0 .5em}
+.body{font-size:16px;line-height:1.6;margin:0 0 1em;max-width:68ch}
+.body:last-child{margin-bottom:0}
+
+.hand,.tape-card__hand,.stamp-card__hand{
+  font-family:"Caveat",cursive;
+  color:var(--red);
+  font-size:22px;
+  line-height:1.3;
+  margin:0;
+}
+mark{
+  background:transparent;
+  color:inherit;
+  border-bottom:3px solid var(--red);
+  padding-bottom:1px;
+}
+
+/* ---------- Sticky top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 20px;
+  background:var(--kraft);
+  border-top:3px solid var(--ink);
+  border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+}
+.topbar__left{display:flex;align-items:center;gap:8px;color:var(--red);font-weight:500;white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.topbar__center{opacity:.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar__right{opacity:.8;white-space:nowrap}
+.topbar__link{color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);font-weight:500}
+.topbar__link:hover{color:var(--red)}
+
+/* ---------- Hero / Deckblatt ---------- */
+.hero{
+  padding:clamp(48px,8vw,110px) 20px clamp(56px,8vw,110px);
+  background-image:radial-gradient(rgba(42,31,20,.10) 1px,transparent 1.4px);
+  background-size:26px 26px;
+}
+.hero__sheet{max-width:var(--content);margin:0 auto;text-align:center}
+.hero .micro{margin-bottom:.55em}
+.hero__h1{
+  margin:.35em 0 .35em;
+  font-size:clamp(44px,7vw,96px);
+  line-height:1; /* 0.95 per spec would collide with the wavy Rotstift underline */
+}
+.h1-line{display:block}
+.h1-line--aber{color:var(--gray);font-size:.62em;letter-spacing:.06em}
+.h1-line--red{
+  color:var(--red);position:relative;display:inline-block;
+  text-decoration:underline wavy var(--red);
+  text-decoration-thickness:.055em;
+  text-underline-offset:.17em;
+}
+.hero__sub{
+  max-width:56ch;margin:1.2em auto 2em;
+  font-size:clamp(16px,2.4vw,19px);line-height:1.6;
+}
+
+/* Rubber stamp card — slams in with impact */
+.stamp-card{
+  position:relative;
+  display:inline-block;
+  border:4px double var(--red);
+  color:var(--red);
+  padding:26px 34px 30px;
+  transform:rotate(-3deg);
+  margin:0 auto 2.2em;
+  filter:url(#stamp-rough);
+  background:rgba(176,42,30,.03);
+  opacity:0;
+  transform-origin:center;
+  animation:stampSlam .62s var(--ease) 1.35s forwards;
+}
+.stamp-card__vermerk{color:var(--red);opacity:.85}
+.stamp-card__big{
+  font-size:clamp(30px,5.4vw,54px);
+  line-height:1;margin:.25em 0;
+  letter-spacing:0;
+}
+.stamp-card__akte{color:var(--red);opacity:.85}
+.stamp-card__hand{transform:rotate(-2deg);margin-top:.4em}
+/* Stamp slam: 2-frame anticipation → hard hit → hit-stop → settle */
+@keyframes stampSlam{
+  0%{opacity:0;transform:rotate(-12deg) scale(1.9)}
+  10%{opacity:1;transform:rotate(-8deg) scale(1.45)}   /* anticipation */
+  17%{transform:rotate(-3deg) scale(.9)}               /* hard hit */
+  24%{transform:rotate(-3deg) scale(.9)}               /* hit-stop hold */
+  34%{transform:rotate(-2.4deg) scale(1.04)}
+  46%{transform:rotate(-3.2deg) scale(.99)}
+  60%,100%{opacity:1;transform:rotate(-3deg) scale(1)}
+}
+/* Paper shake on the hero sheet right at the hit */
+.hero__sheet{animation:sheetShake .55s ease-out 1.62s}
+@keyframes sheetShake{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  18%{transform:translate(3px,-2px) rotate(.25deg)}
+  38%{transform:translate(-3px,2px) rotate(-.25deg)}
+  58%{transform:translate(2px,1px) rotate(.12deg)}
+  78%{transform:translate(-1px,-1px) rotate(-.1deg)}
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:block;
+  width:fit-content;
+  margin-inline:auto;
+  background:var(--ink);color:var(--kraft);
+  font-family:"Archivo",sans-serif;font-weight:700;font-stretch:75%;
+  text-transform:uppercase;letter-spacing:.04em;font-size:17px;
+  padding:16px 38px;border-radius:999px;
+  text-decoration:none;border:2px solid var(--ink);
+  transition:transform .2s var(--ease),background .2s,color .2s;
+  min-height:44px;
+}
+.btn:hover{transform:scale(1.03);background:var(--red);border-color:var(--red);color:var(--kraft)}
+.btn:active{transform:scale(.97)}
+
+/* ---------- Sections ---------- */
+.section{max-width:var(--content);margin:0 auto;padding:clamp(56px,8vw,104px) 20px}
+.section--wide,.facts{max-width:var(--content-wide);margin:0 auto;padding-left:20px;padding-right:20px}
+
+/* Fact strip */
+.facts{padding-top:0;padding-bottom:0}
+.facts__grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+}
+.fact{
+  background:var(--card);
+  border:1px solid var(--line-strong);
+  padding:20px 18px;
+  transition:transform .2s var(--ease);
+}
+.fact:hover{transform:scale(1.03)}
+.fact .micro{margin-bottom:.7em}
+.fact__value{font-size:clamp(17px,2.2vw,23px);line-height:1.15;margin:0 0 .35em}
+.fact__value--red{color:var(--red)}
+.fact__note{margin:0;font-size:13px;color:var(--gray)}
+
+/* Executive summary points */
+.points{list-style:none;margin:1.6em 0;padding:0;display:grid;gap:1.2em}
+.points li{display:grid;grid-template-columns:44px 1fr;gap:6px;align-items:start}
+.points__num{
+  font-family:"Archivo",sans-serif;font-stretch:75%;font-weight:800;
+  font-size:30px;color:var(--red);line-height:1;
+  border:2px solid var(--red);border-radius:50%;
+  width:44px;height:44px;display:grid;place-items:center;
+  filter:url(#stamp-rough);
+}
+.points p{margin:0;font-size:17px;line-height:1.6}
+
+/* Tape-cornered quote card */
+.tape-card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  padding:28px 30px;
+  margin:1.4em 0 0;max-width:560px;
+  transform:rotate(-.6deg);
+}
+.tape-card::before,.tape-card::after{
+  content:"";position:absolute;top:-13px;width:74px;height:26px;
+  background:rgba(217,196,154,.75);
+  border-left:1px dashed rgba(42,31,20,.25);
+  border-right:1px dashed rgba(42,31,20,.25);
+}
+.tape-card::before{left:18px;transform:rotate(-38deg)}
+.tape-card::after{right:18px;transform:rotate(38deg)}
+.tape-card__hand{font-size:24px}
+
+/* ---------- Befund cards ---------- */
+.befunde{display:grid;gap:26px;margin-top:2em}
+.befund{
+  background:var(--card);
+  border:1px solid var(--line-strong);
+  padding:clamp(22px,4vw,40px);
+  position:relative;
+  transition:transform .2s var(--ease);
+}
+.befund:hover{transform:scale(1.015)}
+.befund__head{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  flex-wrap:wrap;margin-bottom:.4em;
+}
+.severity{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  color:var(--red);border:2px dashed var(--red);
+  padding:6px 10px;margin:0;white-space:nowrap;
+  transform:rotate(1.5deg);
+  filter:url(#stamp-rough);
+}
+.query{
+  font-family:"IBM Plex Mono",monospace;font-size:.88em;
+  background:rgba(42,31,20,.07);
+  border:1px solid var(--line-strong);
+  padding:2px 8px;border-radius:2px;
+  overflow-wrap:anywhere;
+}
+.checklist{list-style:none;margin:0 0 1em;padding:0;display:grid;gap:.45em;font-size:16px}
+.checklist__miss{color:var(--red);font-weight:600}
+
+.marg{
+  border-left:4px solid var(--red);
+  padding:6px 0 6px 16px;margin:1.4em 0;
+}
+.marg .hand{transform:rotate(-2deg);display:inline-block;max-width:100%}
+.marg .micro{margin-bottom:.35em}
+
+.befund__foot{
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  border-top:1px solid var(--line);
+  padding-top:12px;
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;opacity:.55;
+}
+
+/* GEO prompt rows (copy affordance) */
+.befund__prompts-label{margin:1.6em 0 .8em}
+.prompts{display:grid;gap:10px;margin-bottom:1.4em}
+.prompt-row{
+  display:flex;align-items:center;gap:12px;
+  width:100%;text-align:left;cursor:pointer;
+  background:rgba(42,31,20,.045);
+  border:1px solid var(--line-strong);
+  padding:14px 16px;border-radius:2px;
+  font-family:"Archivo",sans-serif;font-size:15px;color:var(--ink);
+  transition:transform .2s var(--ease),border-color .2s,background .2s;
+}
+.prompt-row:hover{transform:scale(1.02);border-color:var(--red)}
+.prompt-row:active{transform:scale(.99)}
+.prompt-row__tag{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  color:var(--red);border:1px dashed var(--red);padding:5px 8px;white-space:nowrap;flex:none;
+}
+.prompt-row__text{flex:1;min-width:0;overflow-wrap:anywhere}
+.prompt-row__copy{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  opacity:.5;white-space:nowrap;flex:none;
+}
+.prompt-row--copied{border-color:var(--red);background:rgba(176,42,30,.08)}
+.prompt-row--copied .prompt-row__copy{color:var(--red);opacity:1;font-weight:500}
+
+/* Placeholder + honesty boxes */
+.placeholder-box{
+  border:2px dashed var(--red);
+  padding:20px;margin:1.4em 0;
+  background:rgba(176,42,30,.04);
+}
+.placeholder-box .micro{margin-bottom:.6em}
+.honesty-box{
+  border:1px solid var(--line-strong);
+  background:rgba(42,31,20,.05);
+  padding:16px 18px;margin:1.4em 0;
+}
+.honesty-box .micro{opacity:.85}
+
+/* ---------- Marktvergleich ---------- */
+.comp-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:1.6em;
+}
+.comp{
+  background:var(--card);border:1px solid var(--line-strong);
+  padding:18px;transition:transform .2s var(--ease);
+}
+.comp:hover{transform:scale(1.03)}
+.comp__name{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:16px;margin:0 0 .3em}
+.comp .micro{margin-bottom:.5em;overflow-wrap:anywhere}
+.comp__note{margin:0;font-size:14px;color:var(--gray)}
+.comp__note--red{color:var(--red);font-weight:600}
+
+/* ---------- Foto-Platzhalter ---------- */
+.photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.photo-frame{
+  border:2px dashed var(--line-strong);
+  min-height:280px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:28px;gap:.5em;
+  background:rgba(42,31,20,.03);
+}
+.photo-frame__cap{font-weight:700;font-stretch:75%;text-transform:uppercase;font-size:16px;margin:0}
+.photo-frame__note{margin:0;font-size:13.5px;color:var(--gray);max-width:38ch}
+
+/* ---------- Roadmap: folder tabs ---------- */
+.phases{display:grid;gap:34px;margin-top:2.2em}
+.phase{position:relative;padding-top:26px}
+.phase__tab{
+  position:absolute;top:0;left:26px;z-index:2;
+  background:var(--kraft-deep);
+  border:1px solid var(--line-strong);border-bottom:none;
+  padding:8px 26px 10px;
+  clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 100%,0 100%);
+}
+.phase__tab .micro{opacity:.85}
+.phase__body{
+  background:var(--card);
+  border:1px solid var(--line-strong);
+  padding:clamp(24px,4vw,38px);
+  transition:transform .2s var(--ease);
+}
+.phase__body:hover{transform:scale(1.01)}
+.phase__tag{margin:-.4em 0 1em}
+.phase__step{margin-bottom:1.2em}
+.phase__step:last-child{margin-bottom:0}
+.phase__step .micro{margin-bottom:.4em}
+
+/* ---------- CTA / Akten-Schluss ---------- */
+.cta{text-align:center}
+.closed-stamp{
+  display:inline-grid;place-items:center;
+  border:5px solid var(--red);color:var(--red);
+  font-family:"Archivo",sans-serif;font-stretch:75%;font-weight:800;
+  font-size:clamp(26px,4.5vw,40px);letter-spacing:.1em;
+  padding:10px 34px;margin-bottom:1.2em;
+  transform:rotate(4deg);
+  filter:url(#stamp-rough);
+}
+.cta .h2{margin-left:auto;margin-right:auto;max-width:16ch}
+.cta .body{margin-left:auto;margin-right:auto;max-width:60ch}
+.cta .btn{margin:1.2em 0}
+.cta__mail{
+  font-family:"Archivo",sans-serif;font-weight:700;font-size:19px;
+  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--red);
+}
+.cta__mail:hover{color:var(--red)}
+.cta .micro{margin-top:1.1em}
+
+/* ---------- Footer ---------- */
+.footer{
+  border-top:1px solid var(--line-strong);
+  padding:26px 20px 34px;text-align:center;
+}
+.footer .micro{margin-bottom:.4em}
+
+/* ---------- Hero staggered intro ---------- */
+.rise{opacity:0;animation:riseIn .8s var(--ease) forwards}
+.rise[data-rise="0"]{animation-delay:.05s}
+.rise[data-rise="1"]{animation-delay:.15s}
+.rise[data-rise="2"]{animation-delay:.3s}
+.rise[data-rise="3"]{animation-delay:.45s}
+.rise[data-rise="4"]{animation-delay:.6s}
+.rise[data-rise="5"]{animation-delay:.8s}
+.rise[data-rise="6"]{animation-delay:1.0s}
+.rise[data-rise="7"]{animation-delay:1.15s}
+.rise[data-rise="8"]{animation-delay:1.3s}
+@keyframes riseIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---------- Scroll reveal (JS adds .js; .reveal starts hidden) ---------- */
+html.js .reveal{opacity:0;transform:translateY(24px)}
+html.js .reveal.in{
+  opacity:1;transform:none;
+  transition:opacity .7s var(--ease),transform .7s var(--ease);
+}
+html.js .reveal.in .marg .hand{transition:opacity .5s var(--ease) .08s,transform .5s var(--ease) .08s}
+html.js .reveal .marg .hand{opacity:0;transform:translateY(10px) rotate(-2deg)}
+html.js .reveal.in .marg .hand{opacity:1;transform:rotate(-2deg)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .facts__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .comp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .topbar__center{display:none}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .photo-grid{grid-template-columns:1fr}
+  .topbar{font-size:10px;padding:10px 14px;gap:8px}
+  .topbar__right .topbar__link{white-space:nowrap}
+  .befund__foot{font-size:10px}
+  .prompt-row{flex-wrap:wrap}
+  .stamp-card{padding:20px 22px 24px}
+}
+
+/* ---------- prefers-reduced-motion: everything static ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rise{opacity:1}
+  .stamp-card{opacity:1;transform:rotate(-3deg);filter:url(#stamp-rough)}
+  html.js .reveal,html.js .reveal .marg .hand{opacity:1;transform:none}
+  .hero__sheet{animation:none}
+}
+
+/* ---------- Focus visibility ---------- */
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--red);outline-offset:3px;border-radius:2px;
+}
